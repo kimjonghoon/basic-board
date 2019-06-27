@@ -15,7 +15,7 @@ public abstract class ConnectionManager {
 
 	public ConnectionManager(String pool) {
 		poolName = pool;
-		// Property파일 디렉토리 지정
+
 		configFile = poolName + ".properties";
 
 		try {

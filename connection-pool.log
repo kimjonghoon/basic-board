@@ -1,0 +1,22 @@
+Thu Jun 27 14:38:51 KST 2019 : ORA-00942: table or view does not exist
+
+Thu Jun 27 14:38:51 KST 2019 : Error Source : board/list.jsp : SQLException
+Thu Jun 27 14:38:51 KST 2019 : SQLState : 42000
+Thu Jun 27 14:38:51 KST 2019 : Message : ORA-00942: table or view does not exist
+
+Thu Jun 27 14:38:51 KST 2019 : Oracle Error Code : 942
+Thu Jun 27 14:38:51 KST 2019 : sql : SELECT articleno,title,regdate FROM (SELECT ROWNUM R, A.* FROM (SELECT articleno,title,regdate FROM article ORDER BY articleno DESC) A) WHERE R BETWEEN ? AND ?
+Thu Jun 27 14:39:03 KST 2019 : Error Source: BoardWriter.java : SQLException
+Thu Jun 27 14:39:03 KST 2019 : SQLState: 42000
+Thu Jun 27 14:39:03 KST 2019 : Message: ORA-00942: table or view does not exist
+
+Thu Jun 27 14:39:03 KST 2019 : Oracle Error Code: 942
+Thu Jun 27 14:39:03 KST 2019 : sql: INSERT INTO article VALUES (seq_article.nextval, ?, ?, sysdate)
+Thu Jun 27 14:39:03 KST 2019 : ORA-00942: table or view does not exist
+
+Thu Jun 27 14:39:03 KST 2019 : Error Source : board/list.jsp : SQLException
+Thu Jun 27 14:39:03 KST 2019 : SQLState : 42000
+Thu Jun 27 14:39:03 KST 2019 : Message : ORA-00942: table or view does not exist
+
+Thu Jun 27 14:39:03 KST 2019 : Oracle Error Code : 942
+Thu Jun 27 14:39:03 KST 2019 : sql : SELECT articleno,title,regdate FROM (SELECT ROWNUM R, A.* FROM (SELECT articleno,title,regdate FROM article ORDER BY articleno DESC) A) WHERE R BETWEEN ? AND ?

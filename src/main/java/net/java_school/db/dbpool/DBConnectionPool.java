@@ -6,21 +6,21 @@ import java.util.Date;
 
 import net.java_school.util.Log;
 
-// Connection Pool을 관리하는 클래스 
+//Class to manage Connection Pools 
 class DBConnectionPool {
-	// 현재 사용 중인 Connection 개수
+	//Number of connections currently in use
 	private int checkedOut;
 
 	// Free Connection List
 	private Vector<Connection> freeConnections = new Vector<Connection>();
 
-	// Connection 최대 개수
+	//Maximum number of connections
 	private int maxConn;
 
-	// Connection 초기 개수
+	//Initial Connections
 	//private int initConn;
 
-	// Waiting time (pool에 connection이 없을때 기다리는 최대시간)
+	// Waiting time (Maximum time to wait when there is no connection in pool)
 	private int maxWait;
 
 	// Connection Pool Name
@@ -56,36 +56,36 @@ class DBConnectionPool {
 		}
 	}
 
-	// Connection 반납
-	// @param con : 반납할 Connection
+	//Returning Connection
+	// @param con : Connection to return
 	public synchronized void freeConnection(Connection con) {
 		freeConnections.addElement(con);
 		checkedOut--;
-		// Connection을 얻기 위해 대기하고 있는 thread에 알림
+		//Notify thread waiting to get Connection
 		notifyAll();
 	}
 
-	// Connection 을 얻음
+	//Get Connection
 	@SuppressWarnings("resource")
 	public synchronized Connection getConnection() {
 		Connection con = null;
-		// Connection이 Free List에 있으면 List의 처음 것을 얻음
+		//If Connection is in Free List, get the first of List
 		if (freeConnections.size() > 0) {
 			con = (Connection) freeConnections.firstElement();
 			freeConnections.removeElementAt(0);
 
 			try {
-				// DBMS에 의해 Connection이 close 되었으면 다시 요구
+				//If the connection is closed by the DBMS, try again
 				if (con.isClosed()) {
 					Log.err("Removed bad connection from " + name);
 					con = getConnection();
 				}
-			} // 요상한 Connection 발생하면 다시 요구
+			} //If an exception occurs, try again
 			catch (SQLException e) {
 				Log.err(e, "Removed bad connection from " + name);
 				con = getConnection();
 			}
-		} // Connection이 Free List에 없으면 새로 생성
+		} //If Connection is not in Free List, create new
 		else if (maxConn == 0 || checkedOut < maxConn) {
 			con = newConnection();
 		}
@@ -97,8 +97,8 @@ class DBConnectionPool {
 		return con;
 	}
 
-	// Connection을 얻음
-	// @param timeout : Connection을 얻기 위한 최대 기다림 시간
+	// Get Connection
+	// @param timeout : Maximum Wait Time to get a Connection
 	public synchronized Connection getConnection(long timeout) {
 		long startTime = new Date().getTime();
 		Connection con;
@@ -107,7 +107,7 @@ class DBConnectionPool {
 				wait(timeout * maxWait);
 			} catch (InterruptedException e) {}
 			if ((new Date().getTime() - startTime) >= timeout) {
-				// 기다림 시간 초과
+				//If the maximum wait time is exceeded
 				return null;
 			}
 		}
@@ -115,7 +115,7 @@ class DBConnectionPool {
 		return con;
 	}
 
-	// Connection 생성
+	//Create Connection
 	private Connection newConnection() {
 		Connection con = null;
 		try {

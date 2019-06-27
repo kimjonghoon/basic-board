@@ -1,11 +1,10 @@
-#Basic Board
+# Basic Board
 
 This example covers the basics of the bulletin board.
 For more information, See http://www.java-school.net/jsp/BBS-Study. 
 
+### Database Design
 Create article table and seq_article sequence in the SCOTT account and insert the test record as shown below. 
-
-## Database Design
 
 	create table article (
 	    articleno number,
@@ -121,9 +120,9 @@ Create article table and seq_article sequence in the SCOTT account and insert th
 	insert into article values (seq_article.nextval, '000100','',sysdate);
 	commit;
 
-## Have to do
+### Have to do
 Install the Oracle JDBC driver in local repository.
-See http://www.java-school.net/spring/di#Oralce-JDBC-Driver-Dependency. 
+See http://www.java-school.net/spring/di#Oralce-JDBC-Driver-Dependency
 
-## How to run
+### How to run
 **mvn jetty:run**
